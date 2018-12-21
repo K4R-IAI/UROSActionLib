@@ -5,6 +5,9 @@ import getopt
 from pathlib import Path
 
 
+#TODO  what happens of no name of the package is given e.g. GripperCommand
+
+
 class UROSActionCodeGenerator:
 
     def __init__(self, ActionDefinitionFile):
@@ -75,12 +78,16 @@ class UROSActionDefinitionParser:
     def RemoveCommentsAndEmptyLines(self):
         CleanedDefinition = []
         for line in self.ActionDefinition:
-            if not line[0] == '#':
-                if not line[0] == '\n':
-                    if(line.endswith('\n')):
-                        CleanedDefinition.append(line[:-1])
+            SplitLine = line.split('#', 1)[0]
+            # if not line[0] == '#':
+            print("test")
+            print(SplitLine)
+            if not SplitLine == '':
+                if not SplitLine == '\n':
+                    if(SplitLine.endswith('\n')):
+                        CleanedDefinition.append(SplitLine[:-1])
                     else:
-                        CleanedDefinition.append(line)
+                        CleanedDefinition.append(SplitLine)
         self.ActionDefinition = CleanedDefinition
 
     def FillGoalResultFeedback(self):
@@ -145,7 +152,7 @@ class UROSActionGoalCodeGenerator(UCodeGenerator):
         self.NameOption = "ActionGoal"
         self.Data.append("std_msgs/Header header\n")
         self.Data.append("actionlib_msgs/GoalID goal_id\n")
-        self.Data.append(self.ActionName + self.NameOption + "Goal goal\n")
+        self.Data.append(self.ActionName + self.NameOption + " goal\n")
         print(self.Data)
 
 
@@ -191,7 +198,7 @@ class UROSActionResultCodeGenerator(UCodeGenerator):
         self.NameOption = "ActionResult"
         self.Data.append("std_msgs/Header header\n")
         self.Data.append("actionlib_msgs/GoalStatus goal_status\n")
-        self.Data.append(self.ActionName + self.NameOption + "Result result\n")
+        self.Data.append(self.ActionName + self.NameOption + " result\n")
         print(self.Data)
 
 
