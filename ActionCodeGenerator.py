@@ -139,7 +139,6 @@ class UCodeGenerator:
 
     def MySaveFile(self, FolderPath):
         self.OutputPath = FolderPath / (self.FileNameStem + self.NameOption + ".msg")
-        print(self.OutputPath)
         with self.OutputPath.open('w') as File:
             File.writelines(self.Data)
 
@@ -152,8 +151,7 @@ class UROSActionGoalCodeGenerator(UCodeGenerator):
         self.NameOption = "ActionGoal"
         self.Data.append("std_msgs/Header header\n")
         self.Data.append("actionlib_msgs/GoalID goal_id\n")
-        self.Data.append(self.ActionName + self.NameOption + " goal\n")
-        print(self.Data)
+        self.Data.append(self.ActionName + "Goal" + " goal\n")
 
 
 class UROSGoalCodeGenerator(UCodeGenerator):
@@ -173,8 +171,8 @@ class UROSActionFeedbackCodeGenerator(UCodeGenerator):
 
         self.NameOption = "ActionFeedback"
         self.Data.append("std_msgs/Header header\n")
-        self.Data.append("actionlib_msgs/GoalStatus goal_status\n")
-        self.Data.append(self.ActionName + self.NameOption + " feedback\n")
+        self.Data.append("actionlib_msgs/GoalStatus status\n")
+        self.Data.append(self.ActionName + "Feedback" + " feedback\n")
         print(self.Data)
 
         # OutputPath = FolderPath / self.ActionName.parts[-1] +  ".msg"
@@ -197,8 +195,8 @@ class UROSActionResultCodeGenerator(UCodeGenerator):
         super().__init__(InPath)
         self.NameOption = "ActionResult"
         self.Data.append("std_msgs/Header header\n")
-        self.Data.append("actionlib_msgs/GoalStatus goal_status\n")
-        self.Data.append(self.ActionName + self.NameOption + " result\n")
+        self.Data.append("actionlib_msgs/GoalStatus status\n")
+        self.Data.append(self.ActionName + "Result" + " result\n")
         print(self.Data)
 
 
@@ -209,7 +207,6 @@ class UROSResultCodeGenerator(UCodeGenerator):
 
         self.NameOption = "Result"
         self.ResultDefinition = ResultDefinition
-        self.Data.append("std_msgs/Header header\n")
         self.FillData(self.ResultDefinition)
 
 
